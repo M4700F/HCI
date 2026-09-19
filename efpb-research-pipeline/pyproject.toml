@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "efpb-research"
+version = "0.1.0"
+description = "Reproducible Explainable Fair Priority Bargaining research pipeline"
+requires-python = ">=3.9"
+dependencies = ["PyYAML>=6.0,<7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7,<9"]
+analysis = ["pandas>=2,<3", "numpy>=1.24,<3", "scipy>=1.10,<2", "matplotlib>=3.7,<4"]
+sumo = ["eclipse-sumo==1.27.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

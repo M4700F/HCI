@@ -1,0 +1,14 @@
+extends: ../intersection.yaml
+experiment_id: benchmark
+backend: surrogate
+warmup_s: 60
+evaluation_s: 600
+scenarios:
+  - id: benchmark_balanced
+    pedestrian_demand: M
+    vehicle_demand: M
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: false
+controllers: [efpb]
+seeds: [2026]

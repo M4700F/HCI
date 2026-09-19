@@ -1,0 +1,14 @@
+extends: ../intersection.yaml
+experiment_id: calibration
+backend: surrogate
+warmup_s: 60
+evaluation_s: 600
+scenarios:
+  - id: calibration_balanced
+    pedestrian_demand: M
+    vehicle_demand: M
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: false
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [301, 302, 303]

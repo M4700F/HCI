@@ -1,0 +1,29 @@
+extends: ../intersection.yaml
+experiment_id: sumo_emergency_1day
+backend: sumo_traci
+warmup_s: 300
+evaluation_s: 900
+scenarios:
+  - id: S1_balanced
+    pedestrian_demand: M
+    vehicle_demand: M
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: false
+  - id: S2_pedestrian_heavy
+    pedestrian_demand: H
+    vehicle_demand: M
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: false
+  - id: S3_vehicle_heavy
+    pedestrian_demand: M
+    vehicle_demand: H
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: false
+signal:
+  fixed_timing: demand_based   # tuned fixed-time baseline chosen in the calibration sweep (surrogate); only the fixed_time controller reads it
+  fixed_cycle_s: 37            # shortest cycle that fits three 10 s minimum greens plus clearance
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [9001, 9002, 9003]

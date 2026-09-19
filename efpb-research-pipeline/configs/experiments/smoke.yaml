@@ -1,0 +1,20 @@
+extends: ../intersection.yaml
+experiment_id: smoke
+backend: surrogate
+warmup_s: 20
+evaluation_s: 120
+scenarios:
+  - id: S1_balanced
+    pedestrian_demand: M
+    vehicle_demand: M
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: false
+  - id: S7_emergency
+    pedestrian_demand: M
+    vehicle_demand: M
+    process: poisson_approximation
+    sensor_profile: nominal
+    emergency: true
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [101]

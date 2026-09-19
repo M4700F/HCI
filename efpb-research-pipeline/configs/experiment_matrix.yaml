@@ -1,0 +1,14 @@
+version: "0.1.0"
+status: "planning_manifest; freeze after calibration and benchmark"
+groups:
+  smoke: {config: configs/experiments/smoke.yaml, runs: 8, purpose: "end-to-end validation", machine: both}
+  calibration: {config: configs/experiments/calibration.yaml, runs: 12, purpose: "predictor/controller parameter selection", machine: 1}
+  benchmark: {config: configs/experiments/benchmark.yaml, runs: 1, purpose: "measured runtime", machine: 1}
+  confirmatory_core: {config: configs/experiments/confirmatory_core.yaml, runs: 1080, purpose: "9 demand cells × 4 controllers × 30 paired seeds", machine: split}
+  robustness: {config: configs/experiments/robustness.yaml, runs: 360, purpose: "9 targeted stress cells × 4 controllers × 10 seeds", machine: split}
+  ablations: {config: configs/experiments/ablations.yaml, runs: 100, purpose: "5 one-factor cells × 2 controllers × 10 seeds", machine: split}
+  hci_replays: {source: "validated EFPB traces", runs: "not a traffic-run multiplier", purpose: "D/F/FC stimulus generation", machine: 2}
+notes:
+  - "confirmatory_core and robustness are provisional until calibration freezes the declared parameter values."
+  - "B3/B4/B5 HCI conditions reuse B3/EFPB traces; they are not additional SUMO runs."
+  - "The surrogate backend is for engineering smoke/calibration only; confirmatory evidence requires SUMO backend validation."

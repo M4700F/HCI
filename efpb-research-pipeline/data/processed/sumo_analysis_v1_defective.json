@@ -1,0 +1,126 @@
+{
+  "n_runs": 36,
+  "groups": {
+    "S1_balanced__efficiency": {
+      "scenario_id": "S1_balanced",
+      "controller": "efficiency",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 224.0,
+      "vehicle_trip_time_mean_s": 468.52519985691174,
+      "vehicle_stopped_wait_mean_s": 456.25864415791375,
+      "vehicle_stopped_wait_p95_s": 1018.6666666666666,
+      "mean_vehicle_queue": 95.24027777777778
+    },
+    "S1_balanced__efpb": {
+      "scenario_id": "S1_balanced",
+      "controller": "efpb",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 492.0,
+      "vehicle_trip_time_mean_s": 208.76248555940637,
+      "vehicle_stopped_wait_mean_s": 452.39528424338835,
+      "vehicle_stopped_wait_p95_s": 1022.0,
+      "mean_vehicle_queue": 92.25722222222223
+    },
+    "S1_balanced__equal_bargaining": {
+      "scenario_id": "S1_balanced",
+      "controller": "equal_bargaining",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 0.0,
+      "vehicle_trip_time_mean_s": 0.0,
+      "vehicle_stopped_wait_mean_s": 554.7072174931272,
+      "vehicle_stopped_wait_p95_s": 1048.3333333333333,
+      "mean_vehicle_queue": 93.52055555555556
+    },
+    "S1_balanced__fixed_time": {
+      "scenario_id": "S1_balanced",
+      "controller": "fixed_time",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 558.6666666666666,
+      "vehicle_trip_time_mean_s": 100.91268010820936,
+      "vehicle_stopped_wait_mean_s": 483.02946827012187,
+      "vehicle_stopped_wait_p95_s": 1028.6666666666667,
+      "mean_vehicle_queue": 85.76
+    },
+    "S2_pedestrian_heavy__efficiency": {
+      "scenario_id": "S2_pedestrian_heavy",
+      "controller": "efficiency",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 370.6666666666667,
+      "vehicle_trip_time_mean_s": 321.3046584000192,
+      "vehicle_stopped_wait_mean_s": 441.0903284083081,
+      "vehicle_stopped_wait_p95_s": 1019.0,
+      "mean_vehicle_queue": 95.15027777777777
+    },
+    "S2_pedestrian_heavy__efpb": {
+      "scenario_id": "S2_pedestrian_heavy",
+      "controller": "efpb",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 516.0,
+      "vehicle_trip_time_mean_s": 183.86247004990852,
+      "vehicle_stopped_wait_mean_s": 457.5788549964754,
+      "vehicle_stopped_wait_p95_s": 1023.0,
+      "mean_vehicle_queue": 90.85944444444445
+    },
+    "S2_pedestrian_heavy__equal_bargaining": {
+      "scenario_id": "S2_pedestrian_heavy",
+      "controller": "equal_bargaining",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 0.0,
+      "vehicle_trip_time_mean_s": 0.0,
+      "vehicle_stopped_wait_mean_s": 554.7072174931272,
+      "vehicle_stopped_wait_p95_s": 1048.3333333333333,
+      "mean_vehicle_queue": 93.52055555555556
+    },
+    "S2_pedestrian_heavy__fixed_time": {
+      "scenario_id": "S2_pedestrian_heavy",
+      "controller": "fixed_time",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 558.6666666666666,
+      "vehicle_trip_time_mean_s": 100.91268010820936,
+      "vehicle_stopped_wait_mean_s": 483.02946827012187,
+      "vehicle_stopped_wait_p95_s": 1028.6666666666667,
+      "mean_vehicle_queue": 85.76
+    },
+    "S3_vehicle_heavy__efficiency": {
+      "scenario_id": "S3_vehicle_heavy",
+      "controller": "efficiency",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 224.0,
+      "vehicle_trip_time_mean_s": 468.52519985691174,
+      "vehicle_stopped_wait_mean_s": 456.25864415791375,
+      "vehicle_stopped_wait_p95_s": 1018.6666666666666,
+      "mean_vehicle_queue": 95.24027777777778
+    },
+    "S3_vehicle_heavy__efpb": {
+      "scenario_id": "S3_vehicle_heavy",
+      "controller": "efpb",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 492.0,
+      "vehicle_trip_time_mean_s": 208.76248555940637,
+      "vehicle_stopped_wait_mean_s": 452.39528424338835,
+      "vehicle_stopped_wait_p95_s": 1022.0,
+      "mean_vehicle_queue": 92.25722222222223
+    },
+    "S3_vehicle_heavy__equal_bargaining": {
+      "scenario_id": "S3_vehicle_heavy",
+      "controller": "equal_bargaining",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 0.0,
+      "vehicle_trip_time_mean_s": 0.0,
+      "vehicle_stopped_wait_mean_s": 554.7072174931272,
+      "vehicle_stopped_wait_p95_s": 1048.3333333333333,
+      "mean_vehicle_queue": 93.52055555555556
+    },
+    "S3_vehicle_heavy__fixed_time": {
+      "scenario_id": "S3_vehicle_heavy",
+      "controller": "fixed_time",
+      "n": 3,
+      "vehicle_throughput_per_hour_mean": 558.6666666666666,
+      "vehicle_trip_time_mean_s": 100.91268010820936,
+      "vehicle_stopped_wait_mean_s": 483.02946827012187,
+      "vehicle_stopped_wait_p95_s": 1028.6666666666667,
+      "mean_vehicle_queue": 85.76
+    }
+  },
+  "note": "Descriptive pilot summary only; no inferential significance is claimed."
+}

@@ -1,0 +1,13 @@
+extends: ../frozen_surrogate.yaml  # frozen calibration parameters (surrogate)
+experiment_id: ablations
+backend: surrogate
+warmup_s: 600
+evaluation_s: 3600
+scenarios:
+  - {id: A1_efficiency_only, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: A2_no_starvation, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: A3_no_efficiency_filter, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: A4_static_weights, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: A5_weighted_sum, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+controllers: [efficiency, efpb]
+seeds: [3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009, 3010]

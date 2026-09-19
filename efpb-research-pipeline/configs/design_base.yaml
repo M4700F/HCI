@@ -1,0 +1,8 @@
+# Base for the full research design: the provisional intersection config plus two demand levels chosen from the saturation
+# study (data/saturation_study/): S = 1.5x and O = 2.0x the previous top level X. Both backends are clearly loaded at S (SUMO
+# about 90% of its ~0.62 veh/s capacity) and over capacity at O (SUMO about 140%; the surrogate's fixed-time plan collapses).
+# Existing configs extend intersection.yaml directly and are unchanged.
+extends: intersection.yaml
+demand:
+  pedestrian_rates_per_s: {L: 0.03, M: 0.07, H: 0.11, X: 0.15, S: 0.225, O: 0.30}
+  vehicle_rates_per_s: {L: 0.10, M: 0.22, H: 0.34, X: 0.44, S: 0.66, O: 0.88}

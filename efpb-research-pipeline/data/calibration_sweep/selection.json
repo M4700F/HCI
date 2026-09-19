@@ -1,0 +1,18 @@
+{
+ "rule": "closest to ideal after min-max scaling within each controller (delay, max wait); safety exclusions applied",
+ "selection_seeds": [
+  301,
+  302,
+  303,
+  304,
+  305
+ ],
+ "picks": {
+  "fixed_time": "fixed_time__006",
+  "efficiency": "efficiency__013",
+  "equal_bargaining": "equal_bargaining__004",
+  "efpb": "efpb__029"
+ },
+ "selection_summary_sha256": "099790d1ddf69457c56ba9f6ef344c8bb298da452b42f373f6066cca7065ed7c",
+ "recorded": "2026-09-19T15:49:25"
+}

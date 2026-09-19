@@ -1,0 +1,17 @@
+extends: ../frozen_surrogate.yaml  # frozen calibration parameters (surrogate)
+experiment_id: robustness
+backend: surrogate
+warmup_s: 600
+evaluation_s: 3600
+scenarios:
+  - {id: S4_tail_wait, pedestrian_demand: L, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: S5_ns_wait, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: S6_conflict, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: S7_emergency, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: true}
+  - {id: S8_repeated_imbalance, pedestrian_demand: H, vehicle_demand: H, process: bursty_markov, sensor_profile: nominal, emergency: false}
+  - {id: S9_saturation, pedestrian_demand: X, vehicle_demand: X, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: S10_low_demand, pedestrian_demand: L, vehicle_demand: L, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: S11_accessibility, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: accessibility, emergency: false}
+  - {id: S12_sensor_error, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: degraded, emergency: false}
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]

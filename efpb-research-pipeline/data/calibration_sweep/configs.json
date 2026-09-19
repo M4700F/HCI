@@ -1,0 +1,439 @@
+{
+ "efficiency__000": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__001": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__002": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__003": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__004": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__005": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__006": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__007": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__008": {
+  "controller.horizon_s": 30,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__009": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__010": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__011": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__012": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__013": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__014": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__015": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__016": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__017": {
+  "controller.horizon_s": 60,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__018": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__019": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__020": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 0,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__021": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__022": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__023": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 5,
+  "signal.service_duration_s": 35
+ },
+ "efficiency__024": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 15
+ },
+ "efficiency__025": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 25
+ },
+ "efficiency__026": {
+  "controller.horizon_s": 90,
+  "controller.switch_cost": 10,
+  "signal.service_duration_s": 35
+ },
+ "efpb__000": {
+  "controller.debt_eta": 1.0,
+  "controller.debt_kappa": 2.0,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "efpb__001": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.2,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 15
+ },
+ "efpb__002": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 15
+ },
+ "efpb__003": {
+  "controller.debt_eta": 1.0,
+  "controller.debt_kappa": 0,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 25
+ },
+ "efpb__004": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.2,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "efpb__005": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 35
+ },
+ "efpb__006": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 35
+ },
+ "efpb__007": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.2,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 35
+ },
+ "efpb__008": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 15
+ },
+ "efpb__009": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 15
+ },
+ "efpb__010": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 35
+ },
+ "efpb__011": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 15
+ },
+ "efpb__012": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 35
+ },
+ "efpb__013": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "efpb__014": {
+  "controller.debt_eta": 1.0,
+  "controller.debt_kappa": 0,
+  "controller.delta": 0.2,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 35
+ },
+ "efpb__015": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 25
+ },
+ "efpb__016": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "efpb__017": {
+  "controller.debt_eta": 1.0,
+  "controller.debt_kappa": 0,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 15
+ },
+ "efpb__018": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 15
+ },
+ "efpb__019": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.2,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 35
+ },
+ "efpb__020": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.2,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 35
+ },
+ "efpb__021": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 35
+ },
+ "efpb__022": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 25
+ },
+ "efpb__023": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 35
+ },
+ "efpb__024": {
+  "controller.debt_eta": 1.0,
+  "controller.debt_kappa": 0,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 25
+ },
+ "efpb__025": {
+  "controller.debt_eta": 1.0,
+  "controller.debt_kappa": 0,
+  "controller.delta": 0.1,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 15
+ },
+ "efpb__026": {
+  "controller.debt_eta": 1,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "efpb__027": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 2,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "efpb__028": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0,
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 15
+ },
+ "efpb__029": {
+  "controller.debt_eta": 2,
+  "controller.debt_kappa": 4,
+  "controller.delta": 0.05,
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 15
+ },
+ "equal_bargaining__000": {
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 15
+ },
+ "equal_bargaining__001": {
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 25
+ },
+ "equal_bargaining__002": {
+  "controller.horizon_s": 30,
+  "signal.service_duration_s": 35
+ },
+ "equal_bargaining__003": {
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 15
+ },
+ "equal_bargaining__004": {
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 25
+ },
+ "equal_bargaining__005": {
+  "controller.horizon_s": 60,
+  "signal.service_duration_s": 35
+ },
+ "equal_bargaining__006": {
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 15
+ },
+ "equal_bargaining__007": {
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 25
+ },
+ "equal_bargaining__008": {
+  "controller.horizon_s": 90,
+  "signal.service_duration_s": 35
+ },
+ "fixed_time__000": {
+  "signal.fixed_cycle_s": 45,
+  "signal.fixed_timing": "static"
+ },
+ "fixed_time__001": {
+  "signal.fixed_cycle_s": 50,
+  "signal.fixed_timing": "static"
+ },
+ "fixed_time__002": {
+  "signal.fixed_cycle_s": 60,
+  "signal.fixed_timing": "static"
+ },
+ "fixed_time__003": {
+  "signal.fixed_cycle_s": 75,
+  "signal.fixed_timing": "static"
+ },
+ "fixed_time__004": {
+  "signal.fixed_cycle_s": 90,
+  "signal.fixed_timing": "static"
+ },
+ "fixed_time__005": {
+  "signal.fixed_cycle_s": 120,
+  "signal.fixed_timing": "static"
+ },
+ "fixed_time__006": {
+  "signal.fixed_cycle_s": 37,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__007": {
+  "signal.fixed_cycle_s": 40,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__008": {
+  "signal.fixed_cycle_s": 45,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__009": {
+  "signal.fixed_cycle_s": 50,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__010": {
+  "signal.fixed_cycle_s": 60,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__011": {
+  "signal.fixed_cycle_s": 75,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__012": {
+  "signal.fixed_cycle_s": 90,
+  "signal.fixed_timing": "demand_based"
+ },
+ "fixed_time__013": {
+  "signal.fixed_cycle_s": 120,
+  "signal.fixed_timing": "demand_based"
+ }
+}

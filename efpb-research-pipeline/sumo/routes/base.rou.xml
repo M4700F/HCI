@@ -1,0 +1,7 @@
+<routes>
+  <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="13.9" />
+  <route id="N2S" edges="N_in S_out" />
+  <route id="S2N" edges="S_in N_out" />
+  <route id="E2W" edges="E_in W_out" />
+  <route id="W2E" edges="W_in E_out" />
+</routes>

@@ -1,0 +1,9 @@
+extends: ../frozen_surrogate.yaml  # frozen calibration parameters (surrogate)
+experiment_id: confirmatory
+backend: surrogate
+warmup_s: 600
+evaluation_s: 3600
+scenarios:
+  - {id: C_MM, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [1001, 1002, 1003, 1004, 1005]

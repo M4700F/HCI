@@ -1,0 +1,14 @@
+# Pre-specified stress experiment: near- and over-saturation demand cells (levels S and O from the saturation study), all four
+# controllers, paired seeds. Surrogate backend with the frozen calibration parameters.
+extends: ../frozen_surrogate.yaml
+experiment_id: stress
+backend: surrogate
+warmup_s: 600
+evaluation_s: 3600
+scenarios:
+  - {id: T_SS, pedestrian_demand: S, vehicle_demand: S, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_OO, pedestrian_demand: O, vehicle_demand: O, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_HS, pedestrian_demand: H, vehicle_demand: S, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_SH, pedestrian_demand: S, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130]

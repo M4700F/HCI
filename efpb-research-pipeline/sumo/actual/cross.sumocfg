@@ -1,0 +1,20 @@
+<configuration>
+  <input>
+    <net-file value="cross.net.xml" />
+    <route-files value="cross.rou.xml" />
+    <additional-files value="cross.tls.add.xml,input_additional.add.xml" />
+  </input>
+  <time>
+    <begin value="0" />
+    <end value="4300" />
+    <step-length value="1" />
+  </time>
+  <processing>
+    <time-to-teleport value="-1" />
+    <collision.action value="warn" />
+  </processing>
+  <report>
+    <verbose value="false" />
+    <duration-log.statistics value="true" />
+  </report>
+</configuration>

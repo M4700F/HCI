@@ -1,0 +1,65 @@
+# ---- Python / tooling
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+.idea/
+.vscode/
+
+# ---- Bulky run output (35 GB here). Regenerate with the scripts in the README; do not commit it.
+efpb-research-pipeline/data/runs/
+efpb-research-pipeline/data/runs_*/
+efpb-research-pipeline/data/manifests/
+efpb-research-pipeline/data/figures/
+efpb-research-pipeline/data/stimuli/
+efpb-research-pipeline/data/sumo_runs/
+efpb-research-pipeline/data/sumo_runs_*/
+efpb-research-pipeline/data/sumo_fixed_time_check/
+efpb-research-pipeline/data/archive_*/
+# per-run folders inside calibration and study outputs (the summary CSVs, selection.json and freeze_report.md next to them ARE kept)
+efpb-research-pipeline/data/**/runs/
+efpb-research-pipeline/data/**/sumo_runs/
+efpb-research-pipeline/data/**/selection/
+efpb-research-pipeline/data/**/confirmation/
+efpb-research-pipeline/data/**/holdout/
+
+# ---- Logs and scratch (keep the launcher scripts and job lists in logs/)
+efpb-research-pipeline/logs/*
+!efpb-research-pipeline/logs/*.sh
+!efpb-research-pipeline/logs/sumo_jobs.txt
+!efpb-research-pipeline/logs/sumo_check_jobs.txt
+*.log
+*.out
+
+# ---- Files SUMO writes while running
+netstate.xml
+tlsstate.xml
+*.sumo.log
+
+# ---- Large or binary artefacts that should never be committed by accident
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.parquet
+*.h5
+*.mp4
+
+# ---- LaTeX build files (keep the .tex sources)
+efpb-research-pipeline/paper/*.aux
+efpb-research-pipeline/paper/*.bbl
+efpb-research-pipeline/paper/*.blg
+efpb-research-pipeline/paper/*.fdb_latexmk
+efpb-research-pipeline/paper/*.fls
+efpb-research-pipeline/paper/*.log
+efpb-research-pipeline/paper/*.out
+efpb-research-pipeline/paper/*.toc
+efpb-research-pipeline/paper/*.synctex.gz

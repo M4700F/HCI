@@ -1,0 +1,43 @@
+# Calibration of all four controllers in SUMO/TraCI (virtual pedestrians): same budget policy, grids and selection rule as the
+# surrogate calibration, on the design's demand levels including near- and over-saturation. Selection uses seeds 301-305; the
+# picks are confirmed on the new seeds below by freeze_calibration.py --backend sumo. Nothing here is frozen.
+extends: ../design_base.yaml
+experiment_id: sumo_calibration
+backend: sumo_traci
+warmup_s: 300
+evaluation_s: 900
+scenarios:
+  - {id: K_MM, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: K_LH, pedestrian_demand: L, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: K_HL, pedestrian_demand: H, vehicle_demand: L, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: K_HH, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: K_XX, pedestrian_demand: X, vehicle_demand: X, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: K_SS, pedestrian_demand: S, vehicle_demand: S, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: K_OO, pedestrian_demand: O, vehicle_demand: O, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+seeds: [301, 302, 303, 304, 305]
+signal:
+  fixed_timing: demand_based   # the calibrated fixed-time plan is also every controller's sensor fallback
+  fixed_cycle_s: 37
+sweep:
+  budget: 30            # tuning-budget policy: at most 30 configurations per controller (defaults always included);
+                        # smaller spaces are searched exhaustively, larger ones by seeded random search
+  confirm_seeds: [361, 362, 363, 364, 365, 366, 367, 368, 369, 370]
+  controllers:
+    fixed_time:
+      - signal.fixed_timing: [static]                       # splits proportional to the old default splits
+        signal.fixed_cycle_s: [45, 50, 60, 75, 90, 120]
+      - signal.fixed_timing: [demand_based]
+        signal.fixed_cycle_s: [37, 40, 45, 50, 60, 75, 90, 120]
+    efficiency:
+      controller.horizon_s: [30, 60, 90]
+      signal.service_duration_s: [15, 25, 35]
+      controller.switch_cost: [0, 5, 10]
+    equal_bargaining:
+      controller.horizon_s: [30, 60, 90]
+      signal.service_duration_s: [15, 25, 35]
+    efpb:
+      controller.horizon_s: [30, 60, 90]
+      signal.service_duration_s: [15, 25, 35]
+      controller.delta: [0, 0.05, 0.10, 0.20]
+      controller.debt_kappa: [0, 2, 4]
+      controller.debt_eta: [1, 2]

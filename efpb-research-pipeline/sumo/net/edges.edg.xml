@@ -1,0 +1,10 @@
+<edges>
+  <edge id="N_in" from="N" to="J0" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="S_in" from="S" to="J0" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="E_in" from="E" to="J0" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="W_in" from="W" to="J0" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="N_out" from="J0" to="N" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="S_out" from="J0" to="S" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="E_out" from="J0" to="E" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+  <edge id="W_out" from="J0" to="W" numLanes="1" speed="13.9" sidewalkWidth="2.0" />
+</edges>

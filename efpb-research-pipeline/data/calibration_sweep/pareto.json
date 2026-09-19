@@ -1,0 +1,80 @@
+{
+  "configurations": 80,
+  "delta_curve": [
+    {
+      "delta": 0.05,
+      "max_norm_wait": 0.8695,
+      "person_delay_s": 18.204932811411908,
+      "starvation_violations": 22.475
+    },
+    {
+      "delta": 0.2,
+      "max_norm_wait": 0.8475,
+      "person_delay_s": 18.087815880764957,
+      "starvation_violations": 22.475
+    }
+  ],
+  "delta_knee_suggestion": null,
+  "note": "Nothing here changes configs/intersection.yaml. Review the curves, then freeze and preregister parameters yourself.",
+  "pareto_all_configurations": [
+    "efficiency__004",
+    "efficiency__005",
+    "efficiency__007",
+    "efficiency__008",
+    "efficiency__013",
+    "efficiency__014",
+    "efficiency__016",
+    "efficiency__017",
+    "efficiency__022",
+    "efficiency__023",
+    "efficiency__025",
+    "efficiency__026",
+    "efpb__029",
+    "fixed_time__006"
+  ],
+  "pareto_per_controller": {
+    "efficiency": [
+      "efficiency__004",
+      "efficiency__005",
+      "efficiency__007",
+      "efficiency__008",
+      "efficiency__013",
+      "efficiency__014",
+      "efficiency__016",
+      "efficiency__017",
+      "efficiency__022",
+      "efficiency__023",
+      "efficiency__025",
+      "efficiency__026"
+    ],
+    "efpb": [
+      "efpb__029"
+    ],
+    "equal_bargaining": [
+      "equal_bargaining__004",
+      "equal_bargaining__007"
+    ],
+    "fixed_time": [
+      "fixed_time__006"
+    ]
+  },
+  "runs": 3200,
+  "scenarios": [
+    "K_MM",
+    "K_LH",
+    "K_HL",
+    "K_HH",
+    "K_XX",
+    "K_SS",
+    "K_OO",
+    "K_HH_burst"
+  ],
+  "seeds": [
+    301,
+    302,
+    303,
+    304,
+    305
+  ],
+  "status": "suggestion_only_not_frozen"
+}
