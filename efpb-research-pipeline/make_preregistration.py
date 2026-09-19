@@ -68,6 +68,9 @@ def main() -> None:
               "- A first surrogate selection was made on data produced with a bug (fixed-time splits were mis-scaled, so one vehicle phase was never served) and with waits that ignored unserved people. I saw its confirmation results before discarding it. All selections and confirmations in this document were redone with the corrected code from scratch.",
               "- After that first attempt an exact tie in the selection rule changed a parameter for no measurable reason; the rule was refined so that ties keep the default. I saw that tie before changing the rule.",
               "- Both backends have their own frozen file. The surrogate is engineering validation only; SUMO uses virtual pedestrians.",
+              "- The matrix experiments (`data/matrix/` surrogate, `data/sumo_matrix/` SUMO) were started on 2026-09-19 at 17:39 without confirmation that this draft had been registered. If it was not registered before that time, the results are exploratory, not confirmatory.",
+              "- Scenario S11 (accessibility) is excluded from the analysis: the simulator keeps its accessibility flag on for the whole run, which marks every vehicle plan unsafe, so vehicles are never served by any controller. The exclusion follows from the code, not from the outcomes. S7 (emergency: a single-second request) and S12 (all controllers fall back to the same fixed plan) are valid but barely informative as implemented.",
+              "- The SUMO experiment uses 10 paired seeds (the plan's design has 30 for the confirmatory core) because of the time available.",
               "- Later deviations must be listed here with date and reason.", ""]
     Path("docs/preregistration_calibration.md").write_text("\n".join(lines) + "\n")
     print("wrote docs/preregistration_calibration.md")

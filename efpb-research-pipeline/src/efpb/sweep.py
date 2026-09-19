@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 from .config import load_config, sha256_json, write_json
 from .sim import make_manifest, run_one
 
-PROTECTED_CONFIGS = ("confirmatory_core.yaml", "confirmatory.yaml", "robustness.yaml", "ablations.yaml", "stress.yaml", "sumo_emergency.yaml")
+PROTECTED_CONFIGS = ("confirmatory_core.yaml", "confirmatory.yaml", "robustness.yaml", "ablations.yaml", "stress.yaml", "sumo_matrix.yaml", "sumo_emergency.yaml")
 # Parameters the research plan asks to select on calibration data, and the values used when a grid leaves them out.
 DELTA_CURVE_KEYS = ("controller.debt_kappa", "controller.debt_eta", "controller.switch_cost", "controller.horizon_s", "signal.service_duration_s")
 

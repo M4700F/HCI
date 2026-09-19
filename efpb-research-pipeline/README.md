@@ -80,6 +80,10 @@ Fixed-time plans can be `static` (default: `signal.fixed_cycle_s` with the confi
 
 `python docs/make_report.py` rebuilds `../EFPB_Experiment_Run_Report.pdf` from the stored result files (needs `reportlab` and `pyyaml`; not in the project environment). Every table is read from the results, so rerun it after any new results.
 
+## Results
+
+`python docs/make_results.py` builds `../EFPB_Simulation_Results.pdf`, every result so far with charts and per-cell tables (needs `reportlab`, `pyyaml`, `matplotlib`). The matrix experiments are run with `logs/run_matrix_surrogate.sh` (surrogate, trace-free) and `python run_sumo_matrix.py` (SUMO), and analysed with `python analyze_matrix.py`. Future work: run the SUMO experiment with 30 seeds by extending `seeds` in `configs/experiments/sumo_matrix.yaml`; the 10 stored seeds are reused.
+
 ## SUMO fixed-time calibration
 
 ```bash

@@ -124,6 +124,22 @@ for name, root, sel_csv, run_csv in (("surrogate", "data/calibration_sweep", "su
                       "configs": json.loads((ROOT / root / "configs.json").read_text()), "frozen": yaml.safe_load((ROOT / ("configs/frozen_%s.yaml" % ("surrogate" if name == "surrogate" else "sumo"))).read_text())}
 assert len(pilot) == len(pilot_static) * 4 == len(pilot_v2) == 36
 CONTROLLERS = ["fixed_time", "efficiency", "equal_bargaining", "efpb"]
+res = {name: {kind: load("data/results/%s_%s.csv" % (kind, name)) for kind in ("overall", "paired", "cells")} for name in ("surrogate", "sumo")}
+EXCLUDED = json.loads((ROOT / "data/results/excluded.json").read_text())
+
+
+def overall(name, group, controller):
+    return next(r for r in res[name]["overall"] if r["group"] == group and r["controller"] == controller)
+
+
+def pair(name, group, other, metric):
+    return next(r for r in res[name]["paired"] if r["group"] == group and r["comparison"] == "efpb - " + other and r["metric"] == metric)
+
+
+def pair_text(name, group, other, metric):
+    r = pair(name, group, other, metric)
+    return "%+.2f \u00b1 %.2f (%s/%s)" % (float(r["mean_diff"]), float(r["se"]), r["cells_efpb_lower"], r["cells"])
+
 
 s = []
 s.append(P("EFPB Research Pipeline", title))
@@ -133,9 +149,10 @@ s.append(P("Experiment run report: calibration, freeze and readiness<br/>Runs of
 s.append(P("1. Summary", h1))
 s += B([
     "<b>The experiment runs on one computer</b> (8 parallel workers); the two-computer split in the instructions only divides the work. Both backends work end to end: the surrogate and the real SUMO/TraCI runner with virtual pedestrians.",
-    "<b>Ten defects were found and fixed</b> on the way (section 3), among them a wrong SUMO signal program that made every SUMO controller drive the wrong phases, missing yellow/all-red clearance, a parallel-run port collision, a surrogate that served more than its configured capacity, and waits that ignored people still queued at the end (which made starving a mode look good). One of them (the split-scaling bug, defect 9) was introduced by me during calibration and caught before it was used.",
+    "<b>Eleven defects were found</b> on the way, ten fixed and one worked around (section 3), among them a wrong SUMO signal program that made every SUMO controller drive the wrong phases, missing yellow/all-red clearance, a parallel-run port collision, a surrogate that served more than its configured capacity, and waits that ignored people still queued at the end (which made starving a mode look good). One of them (the split-scaling bug, defect 9) was introduced by me during calibration and caught before it was used.",
     "<b>Calibration is done and frozen for both backends</b> (sections 4 and 5): two demand levels near and above saturation were added, every controller was tuned under the same budget (30 configurations), the picks were confirmed on fresh seeds, and the frozen parameters and a preregistration draft are in the repository. In the surrogate only efpb changes from its defaults; in SUMO every controller keeps its defaults.",
-    "<b>You are not yet ready to run the confirmatory experiments.</b> Open blockers: the ablation variants are not implemented, equal_bargaining collapses under saturation and needs a decision, the SUMO runner cannot run the robustness scenarios, pedestrians are virtual, the preregistration is only a draft until you register it, and the HCI study and the statistical analysis do not exist yet (section 8).",
+    "<b>The traffic-simulation experiments have been run</b> (section 6): 1,920 surrogate runs and 520 SUMO runs with the frozen parameters. In the nominal cells efpb has the lowest person delay in SUMO and has a lower maximum wait than efficiency (about equal to equal_bargaining), but the tuned fixed-time plan has the lowest maximum wait; under saturation there is no clear ordering and equal_bargaining collapses. They were started without confirmation that the preregistration draft had been registered first, so treat them as exploratory unless it was. All results are gathered in the companion document <b>EFPB_Simulation_Results.pdf</b>; the 30-seed SUMO run is kept as future work.",
+    "<b>What does not exist yet:</b> the HCI participant study and the preregistered statistical models, the ablation variants, SUMO robustness scenarios and real pedestrians (section 9). Two scenarios are unusable as implemented and are noted in section 6.",
 ])
 
 # ------------------------------------------------------------------ 2
@@ -148,6 +165,8 @@ s.append(table([
     ["SUMO calibration selection (80 configurations, all controllers)", "2,800", "34 min 36 s"],
     ["SUMO confirmation and delta sensitivity (fresh seeds)", "700", "8 min 42 s"],
     ["SUMO pilot (4 controllers x 3 scenarios x 3 seeds)", "36", "about 50 s"],
+    ["Surrogate matrix: confirmatory_core, robustness, stress (trace-free mode)", "1,920", "65 s"],
+    ["SUMO experiment: 13 cells x 4 controllers x 10 seeds, 4,200 s each", "520", "17 min 21 s"],
     ["Old 1,540-run surrogate matrix (earlier simulator versions, now stale)", "1,540", "58 to 73 min"],
 ], [100 * mm, 20 * mm, W - 120 * mm]))
 s.append(P("The instructions' estimate of 6.4–8.6 hours on two computers assumed 20 s per run; per-run cost differs by about 30 times between controllers. A full-length SUMO matrix has not been timed. Lean mode (no traces or per-second files) makes surrogate runs about 500 times faster and gives identical metrics.", small))
@@ -166,9 +185,10 @@ defects = [
     ["8", "Waits ignored people still queued at the end of a run.", "A controller that starved a mode looked good on max wait (equal_bargaining showed a pedestrian wait of 0 with 0% served).", "Unserved people count with the wait so far (surrogate 0.4.0, SUMO runner 0.5.0)."],
     ["9", "Static fixed-time splits were scaled by the config's cycle (37) instead of their own total (90).", "In the new sweep one vehicle phase was never served, so a broken plan won the first selection.", "Scale by the splits' own total and refuse a phase with no time. Caught before use; the first selection was discarded."],
     ["10", "The default fixed-time baseline (static, 90 s) was untuned.", "The research plan forbids comparing a tuned proposal with an untuned default.", "Demand-based plan added and calibrated; a 37 s cycle wins in both backends (section 5)."],
+    ["11", "Surrogate scenario S11 (accessibility): the accessibility flag stays on for the whole run, which marks every vehicle plan unsafe.", "Vehicles are never served by any controller (0% served, about 1,440 s person delay).", "Not fixed (pedestrian walking time is not modelled). Excluded from the analysis; the reason follows from the code, not the outcomes."],
 ]
 s.append(table(defects, [9 * mm, 61 * mm, 55 * mm, W - 125 * mm], markup=True))
-s.append(P("Still open (not defects fixed): the instructions' two-computer commands skip the ablations, their runtime estimate is out of date, the pedestrian clearance interval is not modelled, and the SUMO runner ignores the emergency, sensor-error, accessibility and bursty scenario fields.", small))
+s.append(P("Still open: scenario S7 (emergency) is a single-second request with no visible effect and S12 (sensor error) makes every controller use the same fallback plan, so both are valid but uninformative; the instructions' two-computer commands skip the ablations, their runtime estimate is out of date, the pedestrian clearance interval is not modelled, and the SUMO runner ignores the emergency, sensor-error, accessibility and bursty scenario fields.", small))
 
 # ------------------------------------------------------------------ 4
 s.append(P("4. Demand levels closer to saturation (step 2)", h1))
@@ -290,7 +310,55 @@ s += B([
 ])
 
 # ------------------------------------------------------------------ 6
-s.append(P("6. The SUMO pilot (time-boxed, virtual pedestrians)", h1))
+s.append(P("6. Results of the matrix experiments", h1))
+s.append(P("<b>What was run.</b> Surrogate: confirmatory_core (9 demand cells x 4 controllers x 30 seeds), robustness (9 scenarios x 4 x 10; S11 excluded, so 8 analysed) and stress (4 cells x 4 x 30), 1,920 runs in trace-free mode (identical metrics). SUMO: the 9 nominal cells plus 4 stress cells x 4 controllers x 10 paired seeds, 4,200 s per run, 520 runs, virtual pedestrians. All with the frozen parameters. <b>These are descriptive results:</b> means over cells (cells weighted equally) and paired differences of efpb against each other controller on identical scenarios and seeds, with standard errors. There are no significance tests because the preregistered models do not exist yet. The runs were started without confirmation that the preregistration draft had been registered, so they are exploratory unless it was.", body))
+for name, label, groups in (("sumo", "SUMO/TraCI (virtual pedestrians)", ("nominal", "stress")), ("surrogate", "Surrogate (engineering validation only)", ("nominal", "robustness", "stress"))):
+    extra = ("collisions", "emergency_stops") if name == "sumo" else ("starvation_violations",)
+    head = ["Group", "Controller", "Person delay (s)", "Max wait / limit", "Ped wait (s)", "Veh wait or stop (s)"] + (["Collisions / e-stops"] if name == "sumo" else ["Starvation viol."])
+    rows = [head]
+    for g in groups:
+        for c in CONTROLLERS:
+            r = overall(name, g, c)
+            rows.append([g, c, fnum(r["person_delay_s"], 1), fnum(r["max_norm_wait"]), fnum(r["ped_mean_wait_s"], 1), fnum(r["veh_mean_wait_s"], 1)] + (["%s / %s" % (fnum(r["collisions"], 1), fnum(r["emergency_stops"], 1))] if name == "sumo" else [fnum(r["starvation_violations"], 2)]))
+    s.append(P("<b>%s: means over cells</b> (%s cells)." % (label, ", ".join("%s %s" % (g, overall(name, g, "efpb")["cells"]) for g in groups)), body))
+    s.append(table(rows, [20 * mm, 28 * mm, 23 * mm, 22 * mm, 20 * mm, 27 * mm, W - 140 * mm]))
+    s.append(Spacer(1, 4))
+    rows = [["Group", "efpb minus", "Person delay (s)", "Max wait / limit"]]
+    for g in groups:
+        for other in ("fixed_time", "efficiency", "equal_bargaining"):
+            rows.append([g, other, pair_text(name, g, other, "person_delay_s"), pair_text(name, g, other, "max_norm_wait")])
+    s.append(P("<b>%s: efpb against each controller</b> (paired on scenario and seed; mean difference ± standard error; in brackets the number of cells where efpb is lower; negative = efpb lower/better)." % label, body))
+    s.append(table(rows, [22 * mm, 35 * mm, (W - 57 * mm) / 2, (W - 57 * mm) / 2]))
+    s.append(Spacer(1, 6))
+cells = res["sumo"]["cells"]
+rows = [["SUMO stress cell", "Metric"] + CONTROLLERS]
+for sc in ("T_SS", "T_HS", "T_SH", "T_OO"):
+    for metric, label in (("person_delay_s", "person delay (s)"), ("max_norm_wait", "max wait / limit")):
+        rows.append([sc, label] + [fnum(next(r for r in cells if r["scenario"] == sc and r["controller"] == c)[metric], 1 if metric == "person_delay_s" else 2) for c in CONTROLLERS])
+s.append(P("<b>SUMO stress cells one by one</b> (S = near saturation, O = over saturation; cell T_XY = pedestrian level X, vehicle level Y):", body))
+s.append(table(rows, [28 * mm, 30 * mm] + [(W - 58 * mm) / 4.0] * 4))
+s.append(Spacer(1, 4))
+def line(name, group, other, metric):
+    r = pair(name, group, other, metric)
+    return "%+.2f ± %.2f" % (float(r["mean_diff"]), float(r["se"]))
+s.append(P("What the results show", h2))
+s += B([
+    "<b>Nominal demand, SUMO:</b> efpb has the lowest mean person delay (%s s against %s for efficiency, %s for equal_bargaining and %s for the tuned fixed-time plan) and is lower than each of them in all 9 cells (paired differences %s, %s and %s s). Its max wait is lower than efficiency's (%s) and about equal to equal_bargaining's (%s), but the tuned fixed-time plan has the lowest max wait (%s against %s for efpb) at %s s higher person delay." % (fnum(overall("sumo", "nominal", "efpb")["person_delay_s"], 2), fnum(overall("sumo", "nominal", "efficiency")["person_delay_s"], 2), fnum(overall("sumo", "nominal", "equal_bargaining")["person_delay_s"], 2), fnum(overall("sumo", "nominal", "fixed_time")["person_delay_s"], 2), line("sumo", "nominal", "efficiency", "person_delay_s"), line("sumo", "nominal", "equal_bargaining", "person_delay_s"), line("sumo", "nominal", "fixed_time", "person_delay_s"), line("sumo", "nominal", "efficiency", "max_norm_wait"), line("sumo", "nominal", "equal_bargaining", "max_norm_wait"), fnum(overall("sumo", "nominal", "fixed_time")["max_norm_wait"]), fnum(overall("sumo", "nominal", "efpb")["max_norm_wait"]), fnum(-float(pair("sumo", "nominal", "fixed_time", "person_delay_s")["mean_diff"]), 1)),
+    "<b>Nominal demand, surrogate:</b> the same pattern. efpb ties efficiency on person delay (paired difference %s s) and its max wait is lower (paired difference %s); the fixed-time plan again has the lowest max wait (%s) at a higher person delay (%s s)." % (line("surrogate", "nominal", "efficiency", "person_delay_s"), line("surrogate", "nominal", "efficiency", "max_norm_wait"), fnum(overall("surrogate", "nominal", "fixed_time")["max_norm_wait"]), fnum(overall("surrogate", "nominal", "fixed_time")["person_delay_s"], 1)),
+    "<b>Under saturation there is no clear ordering.</b> In SUMO efpb, efficiency and the fixed-time plan are within about 7 s of each other on person delay and their standard errors are large; cell T_OO (over saturation) fails for every controller (waits of several times the limit). In the surrogate efficiency has the lowest person delay under stress and efpb is higher than it by %s s (paired)." % line("surrogate", "stress", "efficiency", "person_delay_s"),
+    "<b>equal_bargaining collapses under saturation</b> in both backends (SUMO stress: person delay %s s, max wait %s times the limit): pedestrians are almost never served while vehicles queue. This is a property of the baseline as implemented; whether it is the intended baseline is still open, and any advantage of efpb over it under stress should be read with that in mind." % (fnum(overall("sumo", "stress", "equal_bargaining")["person_delay_s"], 0), fnum(overall("sumo", "stress", "equal_bargaining")["max_norm_wait"], 0)),
+    "<b>Safety flags:</b> no collisions and no emergency stops in any SUMO run.",
+    "<b>Robustness scenarios (surrogate):</b> S11 (accessibility) is excluded: the simulator keeps its flag on for the whole run, so vehicles are never served by any controller; it is a code defect, not an outcome. S12 (sensor error) makes every controller use the same fallback plan, and S7 (emergency) is a single-second request with no visible effect, so both are valid but uninformative. The remaining 6 scenarios behave like the nominal cells.",
+])
+s.append(P("Cautions", h2))
+s += B([
+    "The standard errors treat every scenario-and-seed pair as independent and ignore how different the cells are, so in the stress group (4 cells) they are not reliable; read the cell counts and the per-cell table instead.",
+    "SUMO has 10 seeds per cell (the plan's design has 30) and virtual pedestrians; one intersection; the surrogate is engineering validation only.",
+    "Max wait rewards a short fixed cycle by construction (every phase comes round within the cycle), so it favours the fixed-time plan; person delay favours adaptive control. Neither objective alone decides a winner.",
+    "Nothing here says anything about explanations, comprehension or trust; that part of the research plan is untested.",
+])
+
+s.append(P("7. The SUMO pilot (time-boxed, virtual pedestrians)", h1))
 s.append(P("36 runs: 3 scenarios x 4 controllers x 3 seeds (9001–9003, never used for calibration). fixed_time uses the tuned demand-based 37 s plan. The pilot config keeps the provisional parameters (identical to the SUMO frozen set); all 36 runs completed with no collisions and no emergency stops. Means of 3 seeds.", body))
 def cell_mean(rows, sc, ctl, key):
     return statistics.mean(float(r[key]) for r in rows if r["scenario_id"] == sc and r["controller"] == ctl)
@@ -318,7 +386,7 @@ s += B([
 ])
 
 # ------------------------------------------------------------------ 7
-s.append(P("7. Integrity and reproducibility", h1))
+s.append(P("8. Integrity and reproducibility", h1))
 s += B([
     "<b>Versions and fingerprints.</b> Every stored run carries the simulator version (surrogate 0.4.0, SUMO runner 0.5.0) and a fingerprint of everything that decides its result (settings, scenario, controller, seed, plus the SUMO input files). A stored run made with another configuration or version is refused, not reused. Bump the versions by hand when a code change alters results.",
     "<b>Pre-committed selection.</b> %s writes the picks before any confirmation run and refuses to re-pick if the selection results change." % C("freeze_calibration.py"),
@@ -328,25 +396,25 @@ s += B([
 ])
 
 # ------------------------------------------------------------------ 8
-s.append(P("8. Readiness for the confirmatory experiment", h1))
+s.append(P("9. Readiness for the confirmatory experiment", h1))
 ready = [
     ["Item", "Status", "What is missing"],
     ["Pipeline, reproducibility, safeguards", "Ready", "–"],
     ["Demand levels (S, O) and stress experiment", "Done", "–"],
     ["Tuning-budget policy, calibration, freeze (both backends)", "Done", "Register the preregistration draft; decide the weighting of scenarios if you want a different one."],
-    ["Surrogate matrix (confirmatory_core 1,080, robustness 360, stress 480)", "Can run (~1.5 h)", "Move the stale data aside first. Engineering validation only."],
+    ["Surrogate matrix (confirmatory_core 1,080, robustness 360, stress 480)", "Done (exploratory)", "Run trace-free in 65 s; S11 excluded. Engineering validation only. Rerun with traces only for the participant stimuli."],
     ["Ablations (100 runs)", "Not ready", "The ablated controllers are not implemented; the five cells are identical."],
     ["equal_bargaining baseline", "Needs decision", "Collapses under saturation; confirm it is the intended baseline."],
-    ["SUMO experiment at matrix scale", "Not ready", "Runner ignores emergency, sensor, accessibility and bursty scenarios; pedestrians are virtual; no matrix configs or runtime measurement."],
+    ["SUMO experiment (9 nominal + 4 stress cells)", "Done (exploratory)", "10 seeds instead of 30 (the 30-seed run, about 50 more minutes, is kept as future work); virtual pedestrians. The robustness scenarios cannot be run in SUMO (runner ignores emergency, sensor, accessibility, bursty)."],
     ["HCI participant study", "Not started", "Dashboard, participant app, ethics approval, participants."],
     ["Statistical analysis and paper", "Not started", "Preregistered models (GLMM, LMM, ordinal) are not implemented; results table is still TBD."],
 ]
-s.append(table(ready, [70 * mm, 28 * mm, W - 98 * mm], highlight={i: (GREEN if ready[i][1] in ("Ready", "Done", "Can run (~1.5 h)") else AMBER) for i in range(1, len(ready))}))
+s.append(table(ready, [70 * mm, 28 * mm, W - 98 * mm], highlight={i: (GREEN if ready[i][1] in ("Ready", "Done", "Done (exploratory)") else AMBER) for i in range(1, len(ready))}))
 s.append(Spacer(1, 4))
-s.append(P("<b>Suggested next steps:</b> (1) register the preregistration; (2) decide on equal_bargaining; (3) implement the ablation variants; (4) decide the SUMO scope (extend the runner to the robustness scenarios, or limit SUMO claims to the nominal and stress cells) and add SUMO matrix configs; (5) run the surrogate matrix once and implement the preregistered analysis; (6) build the participant study in parallel.", body))
+s.append(P("<b>Suggested next steps:</b> (1) register the preregistration (and say in the paper that the matrix runs preceded confirmation of it, if they did); (2) decide on equal_bargaining; (3) implement the ablation variants and fix or drop scenario S11; (4) future work: rerun the SUMO experiment with 30 seeds (about 50 more minutes; the runner reuses the 10 seeds already stored) and decide the robustness scope; (5) implement the preregistered analysis; (6) start the ethics application and the participant study, which is the longest lead time.", body))
 
-s.append(P("9. Research-integrity note", h1))
-s.append(P("Nothing in this report is a research finding. The surrogate is an approximation, the SUMO runs use virtual pedestrians, calibration output only chooses parameters, and no participant study has been carried out. Results from the first, invalid SUMO pilots and from the flawed first calibration were discarded, not used. All tables are generated from the stored result files by %s." % C("docs/make_report.py")))
+s.append(P("10. Research-integrity note", h1))
+s.append(P("Nothing in this report is a research finding. The surrogate is an approximation, the SUMO runs use virtual pedestrians, calibration output only chooses parameters, and no participant study has been carried out. Results from the first, invalid SUMO pilots and from the flawed first calibration were discarded, not used. All tables are generated from the stored result files by %s. The matrix runs were exploratory unless the preregistration was registered before they started." % C("docs/make_report.py")))
 
 s.append(P("Appendix: where things are", h1))
 s.append(table([
@@ -359,6 +427,8 @@ s.append(table([
     ["Saturation study", "data/saturation_study/"],
     ["SUMO pilot and comparison sets", "data/sumo_runs/, data/sumo_runs_static_fixed_time/, data/sumo_runs_v2_no_clearance/, data/sumo_fixed_time_check/"],
     ["Stale or archived", "data/runs/ (stale), data/runs_v1_no_clearance/, data/sumo_runs_v1_defective/, data/archive_*/"],
+    ["Matrix experiments and their analysis", "data/matrix/ (surrogate runs), data/sumo_matrix/runs/ (SUMO runs), data/results/ (analysis CSVs). Scripts: run_sumo_matrix.py, logs/run_matrix_surrogate.sh, analyze_matrix.py"],
+    ["All results in one document", "../EFPB_Simulation_Results.pdf (built by docs/make_results.py)"],
     ["Status of every result", "data/RESULTS_STATUS.md"],
 ], [50 * mm, W - 50 * mm]))
 

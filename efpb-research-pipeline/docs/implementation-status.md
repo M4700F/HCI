@@ -24,6 +24,7 @@
 
 ## Not yet evidence-complete
 
+- Scenario S11 (accessibility) is broken in the simulator: `accessibility_extension` stays on for the whole run, which marks every vehicle plan unsafe. Pedestrian walking/crossing time is not modelled at all. The analysis excludes S11.
 - The ablation variants (no starvation guard, no efficiency filter, static weights, weighted sum) are not implemented: the five ablation cells are identical.
 - `equal_bargaining` starves pedestrians completely under near- and over-saturation because its individual-rationality rule never leaves a vehicle phase while vehicles are queued; confirm this matches the intended baseline before the confirmatory runs.
 

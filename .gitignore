@@ -13,6 +13,7 @@ __pycache__/
 efpb-research-pipeline/data/runs/
 efpb-research-pipeline/data/runs_*/
 efpb-research-pipeline/data/manifests/
+efpb-research-pipeline/data/matrix/
 efpb-research-pipeline/data/figures/
 efpb-research-pipeline/data/stimuli/
 efpb-research-pipeline/data/sumo_runs/

@@ -1,0 +1,24 @@
+# SUMO/TraCI experiment with the frozen SUMO parameters: the 9 nominal demand cells of the confirmatory design plus the 4 stress
+# cells, four controllers, paired seeds. Virtual pedestrians; the SUMO runner reads only the two demand levels of a cell.
+# Seeds are disjoint from calibration (301-370) and the pilot (9001-9003).
+extends: ../frozen_sumo.yaml
+experiment_id: sumo_matrix
+backend: sumo_traci
+warmup_s: 600
+evaluation_s: 3600
+scenarios:
+  - {id: C_LL, pedestrian_demand: L, vehicle_demand: L, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_LM, pedestrian_demand: L, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_LH, pedestrian_demand: L, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_ML, pedestrian_demand: M, vehicle_demand: L, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_MM, pedestrian_demand: M, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_MH, pedestrian_demand: M, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_HL, pedestrian_demand: H, vehicle_demand: L, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_HM, pedestrian_demand: H, vehicle_demand: M, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: C_HH, pedestrian_demand: H, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_SS, pedestrian_demand: S, vehicle_demand: S, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_OO, pedestrian_demand: O, vehicle_demand: O, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_HS, pedestrian_demand: H, vehicle_demand: S, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+  - {id: T_SH, pedestrian_demand: S, vehicle_demand: H, process: poisson_approximation, sensor_profile: nominal, emergency: false}
+controllers: [fixed_time, efficiency, equal_bargaining, efpb]
+seeds: [4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 4009, 4010]
